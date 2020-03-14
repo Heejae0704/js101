@@ -1,4 +1,5 @@
-// Write a program that finds all the words in the english language (anagrams) that can be formed by using the letters in a given string.
+// Write a program that finds all the words in the english language (anagrams)
+// that can be formed by using the letters in a given string.
 
 // input: a string
 // output: array of possible words (anagrams)
@@ -14,13 +15,14 @@ function reculsiveWord(word, anagram = "", anagrams = []) {
     return null;
   }
 
-  for (let i = 0; i < word.length; i++) {
-    anagram = anagram + word[i];
-    reculsiveWord(word.slice(0, i) + word.slice(i + 1), anagram, anagrams);
+  for (let index = 0; index < word.length; index++) {
+    anagram += word[index];
+    reculsiveWord(word.slice(0, index) + word.slice(index + 1)
+                  ,anagram, anagrams);
     anagram = anagram.slice(0, anagram.length - 1);
   }
 
   return [...new Set(anagrams)];
 }
 
-console.log(reculsiveWord("boy"));
+console.log(reculsiveWord("ABC"));

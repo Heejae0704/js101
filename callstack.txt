@@ -1,0 +1,15 @@
+function reculsiveWord(word, anagram = "", anagrams = []) { // word = "ABC", anagram = "", anagrams = []
+  if (word.length === 0) {
+    anagrams.push(anagram);
+    return null;
+  }
+
+  for (let i = 0; i < word.length; i++) {  // word.length = 3, i = 1
+    anagram += word[i];  // anagram = word[1] = "ABC"[1] = "B"
+    reculsiveWord(word.slice(0, i) + word.slice(i + 1), anagram, anagrams);  // reculsiveWord("AC", "B", [ABC], [ACB])
+    ~~~~~~~~~~~~~~~~~
+    anagram = anagram.slice(0, anagram.length - 1); anagram = ""
+  }
+
+  return [...new Set(anagrams)];
+}
