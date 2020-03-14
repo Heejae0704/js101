@@ -1,0 +1,24 @@
+a function that returns the sum of two numbers
+
+# Given the two numbers called number1 and number2
+
+SET sum = number1 + number2
+PRINT sum
+
+a function that takes an array of strings, and returns a string that is all those strings concatenated together
+
+# Given an array of strings called strArr
+
+Set a variable called concatStr to store concaternated strings.
+Iterate through strArr and for each iteration:
+  - add the element of strArr corresponding to the iteration to concatStr.
+After iterating through the array, return concatStr
+
+a function that takes an array of integers, and returns a new array with every other element
+
+# Given an array of integers called intArr,
+
+Set a variable called newArr to store a new array
+Iterate intArr and for each iteration:
+  - if index is odd, store the array element to newArr
+After iterating through the array, return newArr
