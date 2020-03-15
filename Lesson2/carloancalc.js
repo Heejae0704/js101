@@ -60,5 +60,3 @@ do {
   }
 
 } while (cont === "yes" || cont === "y");
-
-
