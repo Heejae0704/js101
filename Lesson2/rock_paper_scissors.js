@@ -6,7 +6,7 @@ function prompt(message) {
   console.log(`=> ${message}`);
 }
 
-function isWinner(yourChoice, opponentChoice) {
+function whoIsWinner(yourChoice, opponentChoice) {
   if (
     (yourChoice === 'rock' &&
       (opponentChoice === 'scissors' || opponentChoice === 'lizard')) ||
@@ -19,42 +19,38 @@ function isWinner(yourChoice, opponentChoice) {
     (yourChoice === 'spock' &&
       (opponentChoice === 'rock' || opponentChoice === 'scissors'))
   ) {
-    return true;
-  } else return false;
+    return "you";
+  } else if (yourChoice === opponentChoice) {
+    return "even";
+  } else return "computer";
 }
 
-function isLoser(yourChoice, opponentChoice) {
-  if (
-    (yourChoice === 'rock' &&
-      (opponentChoice === 'spock' || opponentChoice === 'paper')) ||
-    (yourChoice === 'paper' &&
-      (opponentChoice === 'lizard' || opponentChoice === 'scissors')) ||
-    (yourChoice === 'scissors' &&
-      (opponentChoice === 'rock' || opponentChoice === 'spock')) ||
-    (yourChoice === 'lizard' &&
-      (opponentChoice === 'rock' || opponentChoice === 'scissors')) ||
-    (yourChoice === 'spock' &&
-      (opponentChoice === 'lizard' || opponentChoice === 'paper'))
-  ) {
-    return true;
-  } else return false;
+function getVerb(win, loose) {
+  if (win === "paper" && loose === "rock") return "covers";
+  if (win === "paper" && loose === "spock") return "disproves";
+  if (win === "rock" && loose === "lizard") return "crushes";
+  if (win === "rock" && loose === "scissors") return "crushes";
+  if (win === "scissors" && loose === "paper") return "cuts";
+  if (win === "scissors" && loose === "lizard") return "decapitates";
+  if (win === "spock" && loose === "rock") return "vaporizes";
+  if (win === "spock" && loose === "scissors") return "smashes";
+  if (win === "lizard" && loose === "paper") return "eats";
+  return "poisons";
 }
 
-function displayWinner(choice, computerChoice) {
-  if (isWinner(choice, computerChoice)) {
-    prompt('You win!');
-  } else if (isLoser(choice, computerChoice)) {
-    prompt('Computer wins!');
+function displayWinner(result) {
+  if (result === "you") {
+    prompt('You win!\n');
+  } else if (result === "computer") {
+    prompt('Computer wins!\n');
   } else {
-    prompt("It's a tie");
+    prompt("It's a tie\n");
   }
 }
 
-function computeScore(choice, computerChoice) {
-  if (isWinner(choice, computerChoice)) {
-    SCORE.you++;
-  } else if (isLoser(choice, computerChoice)) {
-    SCORE.computer++;
+function computeScore(result) {
+  if (SCORE.hasOwnProperty(result)) {
+    SCORE[result]++;
   }
 }
 
@@ -64,13 +60,13 @@ function resetScore() {
 }
 
 function isScissorOrSpock() {
-  prompt("Which one is it? 1) scissor, or 2) Spock: ");
+  prompt("Which one is it? 1) scissors, or 2) spock: ");
   let choice = readline.question();
   while (!["1", "2"].includes(choice)) {
-    prompt("Really, which one is it? type in 1 for scissor, or type 2 for spock.");
+    prompt("Really, which one is it? type in 1 for scissors, or type 2 for spock.");
     choice = readline.question();
   }
-  if (choice === "1") return "scissor";
+  if (choice === "1") return "scissors";
   return "spock";
 }
 
@@ -93,17 +89,26 @@ function expendShortedInput(char) {
   return fullInput;
 }
 
-while (true) {
-
-  prompt(`Choose one: ${VALID_CHOICE.join(', ')}`);
-  let choice = readline.question();
+function getPlayerMove() {
+  prompt(`Choose one: ${VALID_CHOICE.map(el => `[${el[0]}]${el.slice(1)}`).join(', ')}`);
+  let choice = readline.question().toLowerCase();
   if (VALID_CHOICE.map(el => el[0]).includes(choice)) {
     choice = expendShortedInput(choice);
   }
+  return choice;
+}
+
+while (true) {
+  console.clear();
+  prompt("A match for 5 wins!");
+  prompt(`You won ${SCORE.you} times`);
+  prompt(`Computer won ${SCORE.computer} times`);
+
+  let choice = getPlayerMove();
 
   while (!VALID_CHOICE.includes(choice)) {
     prompt("That's not a valid choice");
-    choice = readline.question();
+    choice = getPlayerMove();
   }
 
   let randomIndex = Math.floor(Math.random() * VALID_CHOICE.length);
@@ -111,11 +116,23 @@ while (true) {
 
   prompt(`You chose ${choice}, computer chose ${computerChoice}`);
 
-  displayWinner(choice, computerChoice);
-  computeScore(choice, computerChoice);
+  let winner = whoIsWinner(choice, computerChoice);
+
+  if (winner === "you") {
+    prompt(`${choice} ${getVerb(choice, computerChoice)} ${computerChoice}`);
+  } else if (winner === "computer") {
+    prompt(`${computerChoice} ${getVerb(computerChoice, choice)} ${choice}`);
+  }
+  displayWinner(winner);
+  computeScore(winner);
 
   prompt(`You won ${SCORE.you} times`);
   prompt(`Computer won ${SCORE.computer} times`);
+
+  if (SCORE.you !== 5 && SCORE.computer !== 5) {
+    prompt('press any key to continue (CTRL-C to quit):');
+    readline.question();
+  }
 
   if (SCORE.you === 5) {
     prompt('You are the grand winner!!!');
@@ -137,3 +154,6 @@ while (true) {
 
   }
 }
+
+console.clear();
+prompt('Thank you for playing! Goodbye!');
