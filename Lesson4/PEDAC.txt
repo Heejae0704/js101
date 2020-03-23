@@ -1,0 +1,14 @@
+input: string
+output: array
+rules:
+  Explicit
+    - palindrome words are case sensitive
+    - a string is not palindrome
+    - if no palindrom, return empty array
+    - if empty string input, return empty array
+  Implicit
+    - input is only string
+
+
+
+    
