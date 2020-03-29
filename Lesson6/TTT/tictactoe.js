@@ -10,7 +10,7 @@ function prompt(text) {
 function displayBoard(board) {
   console.clear();
 
-  console.log(`You are ${HUMAN_MARKER}. Computer is ${COMPUTER_MARKER}`)
+  console.log(`You are ${HUMAN_MARKER}. Computer is ${COMPUTER_MARKER}`);
 
   console.log('');
   console.log('     |     |');
@@ -69,16 +69,15 @@ function boardFull(board) {
   return emptySquares(board).length === 0;
 }
 
+// eslint-disable-next-line max-lines-per-function
 function detectWinner(board) {
   let winningLines = [
     [1, 2, 3], [4, 5, 6], [7, 8, 9],
     [1, 4, 7], [2, 5, 8], [3, 6, 9],
     [1, 5, 9], [3, 5, 7]
   ];
-
-  for (let line = 0; line< winningLines.length; line++) {
+  for (let line = 0; line < winningLines.length; line++) {
     let [sq1, sq2, sq3] = winningLines[line];
-
     if (
       board[sq1] === HUMAN_MARKER &&
       board[sq2] === HUMAN_MARKER &&
@@ -93,7 +92,6 @@ function detectWinner(board) {
       return 'Computer';
     }
   }
-
   return null;
 }
 
