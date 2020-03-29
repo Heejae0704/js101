@@ -1,0 +1,94 @@
+* {
+  font-family: 'Noto Sans TC', sans-serif;
+}
+
+.hidden {
+  display: none;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+body {
+  background-color: #dfe6e9;
+  color: #2d3436;
+  text-align: center;
+}
+
+.modal {
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 200px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 75%;
+}
+
+.btn {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100px;
+  height: 30px;
+  color: white;
+  border: none;
+}
+
+/* .button-set-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+.btn-start, .btn-ok, .btn-single-player, .btn-multi-player {
+  cursor: pointer;
+  background-color: #00b894;
+}
+
+.btn-start:active, .btn-ok:active {
+  background-color: #55efc4;
+}
+
+.btn-player1 {
+  background-color: #2980b9;
+}
+
+.btn-player2 {
+  background-color: #c0392b;
+}
+
+.board {
+  margin-top: 20px;
+}
+
+[class*="row"] {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+
+[class*="cell"] {
+  height: 100px;
+  width: 100px;
+  border: 1px #bdc3c7 solid;
+  background-color: #95a5a6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 75px;
+
+}

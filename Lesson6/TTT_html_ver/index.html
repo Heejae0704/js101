@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tic-tac-toe</title>
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC:400,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+  <h1>Tic-Tac-Toe</h1>
+  <div class="button-set-wrapper">
+    <button class="btn btn-player1 js-btn-player1 hidden" disabled>Player 1</button>
+    <button class="btn btn-start js-btn-start">Start</button>
+    <button class="btn btn-player2 js-btn-player2 hidden" disabled>Player 2</button>    
+  </div>
+  <div class="board">
+    <div class="row-01">
+      <div class="column-01 cell-01"></div>
+      <div class="column-02 cell-02"></div>
+      <div class="column-03 cell-03"></div>
+    </div>
+    <div class="row-02">
+      <div class="column-01 cell-04"></div>
+      <div class="column-02 cell-05"></div>
+      <div class="column-03 cell-06"></div>
+    </div>
+    <div class="row-03">
+      <div class="column-01 cell-07"></div>
+      <div class="column-02 cell-08"></div>
+      <div class="column-03 cell-09"></div>
+    </div>
+  </div>
+  <div class="modal hidden">
+      <!-- Modal content -->
+    <div class="modal-content end-game hidden">
+      <p class="end-game-message"></p>
+      <button class="btn btn-ok">OK</button>
+    </div>
+    <div class="modal-content mode-select hidden">
+      <p>Select the game mode</p>
+      <div class="button-set-wrapper">
+        <button class="btn btn-single-player">Single Player</button>
+        <button class="btn btn-multi-player">Multi-Player</button>
+      </div>
+    </div>
+  </div>
+  <script src="tic-tac-toe.js"></script>
+</body>
+</html>
