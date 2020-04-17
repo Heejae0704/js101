@@ -1,14 +1,11 @@
 /* eslint-disable max-statements */
 /* eslint-disable max-lines-per-function */
 const gameStatus = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+
 const cells = document.querySelectorAll("[class*='cell']");
 const startBtn = document.querySelector(".js-btn-start");
 const p1flag = document.querySelector(".js-btn-player1");
 const p2flag = document.querySelector(".js-btn-player2");
-const cellArr = [];
-for (let idx = 1; idx <= 9; idx++) {
-  cellArr.push(document.querySelector(`.cell-0${idx}`));
-}
 const modal = document.querySelector(".modal");
 const okBtn = document.querySelector(".btn-ok");
 const endGameModal = document.querySelector(".end-game");
@@ -16,6 +13,12 @@ const endGameMessage = document.querySelector(".end-game-message");
 const modeSelect = document.querySelector(".mode-select");
 const multiPlayerBtn = document.querySelector(".btn-multi-player");
 const singlePlayerBtn = document.querySelector(".btn-single-player");
+
+const cellArr = [];
+for (let idx = 1; idx <= 9; idx++) {
+  cellArr.push(document.querySelector(`.cell-0${idx}`));
+}
+
 let currentTurn = 1;
 let isSinglePlayer = false;
 
@@ -50,6 +53,26 @@ function isWinner(gameStatus, playerNum) {
   return checkArr.includes(true);
 }
 
+function getNextMove(gameStatus) {
+  const winningIndex = [[0, 1, 2], [3, 4, 5], [6, 7, 8],
+                        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+                        [0, 4, 8], [2, 4, 6]];
+
+  for (let idx = 0; idx < winningIndex.length; idx++) {
+    let zeros = winningIndex[idx].filter(el => gameStatus[el] === 0);
+    if (zeros.length !== 1) continue;
+    let computers = winningIndex[idx].filter(el => gameStatus[el] === 2);
+    if (computers.length === 2) {
+      return zeros[0];
+    }
+    let humans = winningIndex[idx].filter(el => gameStatus[el] === 1);
+    if (humans.length === 2) {
+      return zeros[0];
+    }
+  }
+  return null;
+}
+
 function isFull() {
   return !gameStatus.includes(0);
 }
@@ -70,13 +93,26 @@ function handlePlayerClick(event) {
     } else currentTurn = 1;
   } else displayErrorMessage();
   paintGameStatus();
+
   if (isSinglePlayer === true) {
     while (true) {
       let randomLocation = Math.floor(Math.random() * 9);
       if (!gameStatus.includes(0)) break;
-      if (gameStatus[randomLocation] === 0) {
+      const smartMove = getNextMove(gameStatus);
+      if (gameStatus[4] === 0) {
+        gameStatus[4] = 2;
+        setTimeout(paintGameStatus, 300);
+        currentTurn = 1;
+        break;
+      }
+      if (smartMove !== null) {
+        gameStatus[smartMove] = 2;
+        setTimeout(paintGameStatus, 300);
+        currentTurn = 1;
+        break;
+      } else if (gameStatus[randomLocation] === 0) {
         gameStatus[randomLocation] = 2;
-        setTimeout(paintGameStatus, 1000);
+        setTimeout(paintGameStatus, 300);
         currentTurn = 1;
         break;
       }

@@ -1,7 +1,7 @@
 function asciiValue(str) {
   let total = 0;
-  for (let i = 0; i < str.length; i++) {
-    total += str[i].charCodeAt();
+  for (let idx = 0; idx < str.length; idx++) {
+    total += str[idx].charCodeAt();
   }
   console.log(total);
 }

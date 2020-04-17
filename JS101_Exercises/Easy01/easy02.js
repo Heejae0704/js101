@@ -1,8 +1,7 @@
 function printOdds(num) {
-  for (let i = 1; i <= num; i++) {
-    if (i % 2 === 1) console.log(i);
+  for (let idx = 1; idx <= num; idx++) {
+    if (idx % 2 === 1) console.log(idx);
   }
-  return;
 }
 
 printOdds(99);

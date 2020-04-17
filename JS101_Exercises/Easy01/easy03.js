@@ -1,8 +1,7 @@
 function printEvens(num) {
-  for (let i = 1; i <= num; i++) {
-    if (i % 2 === 0) console.log(i);
+  for (let idx = 1; idx <= num; idx++) {
+    if (idx % 2 === 0) console.log(idx);
   }
-  return;
 }
 
 printEvens(99);
